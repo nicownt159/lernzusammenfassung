@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wirtschaft – Lernzusammenfassung</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f2;
+    --bg2: #ffffff;
+    --bg3: #eeecea;
+    --text: #1a1917;
+    --text2: #4a4845;
+    --text3: #7a7875;
+    --border: rgba(0,0,0,0.10);
+    --border2: rgba(0,0,0,0.18);
+    --blue-bg: #e8f0fb; --blue-text: #1a4fa0; --blue-border: #b0c8f0;
+    --green-bg: #e6f4e6; --green-text: #1e6b1e; --green-border: #a8d8a8;
+    --red-bg: #fbeaea; --red-text: #9b2020; --red-border: #f0b0b0;
+    --acc: #3a5fc5;
+    --font: 'Georgia', serif;
+    --mono: 'Courier New', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --bg: #181714;
+      --bg2: #211f1c;
+      --bg3: #2a2825;
+      --text: #e8e5de;
+      --text2: #b0ada6;
+      --text3: #706d67;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.15);
+      --blue-bg: #1a2a48; --blue-text: #7aabf0; --blue-border: #2a4a80;
+      --green-bg: #1a2e1a; --green-text: #7acf7a; --green-border: #2a5a2a;
+      --red-bg: #2e1a1a; --red-text: #f07a7a; --red-border: #5a2a2a;
+      --acc: #6a90e8;
+    }
+  }
+
+  [data-theme="dark"] {
+    --bg: #181714;
+    --bg2: #211f1c;
+    --bg3: #2a2825;
+    --text: #e8e5de;
+    --text2: #b0ada6;
+    --text3: #706d67;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --blue-bg: #1a2a48; --blue-text: #7aabf0; --blue-border: #2a4a80;
+    --green-bg: #1a2e1a; --green-text: #7acf7a; --green-border: #2a5a2a;
+    --red-bg: #2e1a1a; --red-text: #f07a7a; --red-border: #5a2a2a;
+    --acc: #6a90e8;
+  }
+
+  [data-theme="light"] {
+    --bg: #f7f6f2;
+    --bg2: #ffffff;
+    --bg3: #eeecea;
+    --text: #1a1917;
+    --text2: #4a4845;
+    --text3: #7a7875;
+    --border: rgba(0,0,0,0.10);
+    --border2: rgba(0,0,0,0.18);
+    --blue-bg: #e8f0fb; --blue-text: #1a4fa0; --blue-border: #b0c8f0;
+    --green-bg: #e6f4e6; --green-text: #1e6b1e; --green-border: #a8d8a8;
+    --red-bg: #fbeaea; --red-text: #9b2020; --red-border: #f0b0b0;
+    --acc: #3a5fc5;
+  }
+
+  #theme-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  #theme-btn:hover { background: var(--bg2); color: var(--text); }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 32px 32px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header h1 {
+    font-size: 26px;
+    font-weight: normal;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+
+  header p {
+    font-size: 13px;
+    color: var(--text3);
+    margin-top: 4px;
+    font-family: var(--mono);
+  }
+
+  .layout { display: flex; min-height: calc(100vh - 80px); }
+
+  nav {
+    width: 200px;
+    flex-shrink: 0;
+    padding: 20px 16px;
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  nav p {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+
+  nav button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--text2);
+    font-family: var(--font);
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 2px;
+    transition: background 0.12s, color 0.12s;
+  }
+
+  nav button:hover { background: var(--bg3); color: var(--text); }
+  nav button.active { background: var(--acc); color: #fff; font-weight: bold; }
+
+  main { flex: 1; padding: 28px 32px; max-width: 860px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  h2 {
+    font-size: 22px;
+    font-weight: normal;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--text3);
+    font-family: var(--mono);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+
+  .card h3 {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .card p, .card li { font-size: 14px; color: var(--text2); line-height: 1.65; }
+  .card ul { padding-left: 18px; }
+
+  .formula {
+    background: var(--blue-bg);
+    border: 1px solid var(--blue-border);
+    border-radius: 6px;
+    padding: 9px 14px;
+    margin: 7px 0;
+    font-size: 13px;
+    color: var(--blue-text);
+    font-family: var(--mono);
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    nav { display: none; }
+    main { padding: 16px; }
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    font-family: var(--mono);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .tag-green { background: var(--green-bg); color: var(--green-text); border: 1px solid var(--green-border); }
+  .tag-red   { background: var(--red-bg);   color: var(--red-text);   border: 1px solid var(--red-border); }
+  .tag-blue  { background: var(--blue-bg);  color: var(--blue-text);  border: 1px solid var(--blue-border); }
+
+  hr.div { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left;
+    font-weight: bold;
+    color: var(--text);
+    padding: 7px 8px;
+    border-bottom: 1px solid var(--border2);
+    font-size: 12px;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  td { padding: 7px 8px; color: var(--text2); border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  .hl { color: var(--text); font-weight: bold; }
+  .ok { color: var(--green-text); font-size: 12px; }
+  .bad { color: var(--red-text); font-size: 12px; }
+
+  .mobile-nav {
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .mobile-nav { display: flex; }
+    .layout { flex-direction: column; }
+  }
+
+  .mobile-nav button {
+    padding: 5px 12px;
+    border-radius: 16px;
+    border: 1px solid var(--border2);
+    background: var(--bg2);
+    color: var(--text2);
+    font-family: var(--font);
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .mobile-nav button.active { background: var(--acc); color: #fff; border-color: var(--acc); }
+</style>
+</head>
+<body>
+
+<header style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+  <div>
+    <h1>Wirtschaft – Lernzusammenfassung</h1>
+    <p>Unternehmenskennzahlen · Leistungsprozesse · Aufbauorganisation · Führungsstile · Lagerkennzahlen</p>
+  </div>
+  <button id="theme-btn" onclick="toggleTheme()">🌙 Dunkel</button>
+</header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <button class="active" onclick="show('kennzahlen', this)">Kennzahlen</button>
+  <button onclick="show('wertschoepfung', this)">Leistungsprozesse</button>
+  <button onclick="show('aufbau', this)">Aufbauorganisation</button>
+  <button onclick="show('fuehrung', this)">Führungsstile</button>
+  <button onclick="show('lager', this)">Lagerkennzahlen</button>
+</div>
+
+<div class="layout">
+  <nav>
+    <p>Themen</p>
+    <button class="active" onclick="show('kennzahlen', this)">Unternehmenskennzahlen</button>
+    <button onclick="show('wertschoepfung', this)">Leistungsprozesse</button>
+    <button onclick="show('aufbau', this)">Aufbauorganisation</button>
+    <button onclick="show('fuehrung', this)">Führungsstile</button>
+    <button onclick="show('lager', this)">Lagerkennzahlen</button>
+  </nav>
+
+  <main>
+
+    <!-- UNTERNEHMENSKENNZAHLEN -->
+    <div id="kennzahlen" class="section active">
+      <h2>Unternehmenskennzahlen</h2>
+      <p class="subtitle">Formeln, Definitionen und Rechenbeispiele</p>
+
+      <div class="card">
+        <h3>Produktivität</h3>
+        <p>Misst, wie effizient Ressourcen (Input) in Ergebnisse (Output) umgewandelt werden.</p>
+        <div class="formula">Produktivität = Output / Input</div>
+        <div class="formula">Arbeitsproduktivität = produzierte Stücke / Arbeitsstunden</div>
+        <p style="margin-top:6px">Beispiel: 300.000 Module / 7.000 Stellen ≈ <span class="hl">42,86 Module/Stelle</span></p>
+      </div>
+
+      <div class="card">
+        <h3>Wirtschaftlichkeit</h3>
+        <p>Verhältnis von erzieltem Umsatz zu eingesetzten Kosten. Wert &gt; 1 = wirtschaftlich.</p>
+        <div class="formula">Wirtschaftlichkeit = Umsatz / Kosten</div>
+        <p style="margin-top:6px">Beispiel: 1.000.000 € / 800.000 € = <span class="hl">1,25 = 125 %</span></p>
+      </div>
+
+      <div class="card">
+        <h3>Rentabilität (4 Kennzahlen)</h3>
+        <div class="formula">Eigenkapitalrentabilität (ROE) = Gewinn / Eigenkapital × 100</div>
+        <div class="formula">Gesamtkapitalrentabilität (ROA) = (Gewinn + FK-Zinsen) / Gesamtkapital × 100</div>
+        <div class="formula">Umsatzrentabilität (ROS) = Gewinn / Umsatz × 100</div>
+        <div class="formula">Fremdkapitalrentabilität = FK-Zinsen / Fremdkapital × 100</div>
+        <hr class="div">
+        <p style="font-size:13px">Beispiel TechSolutions: Gewinn 5 Mio. | EK 20 Mio. | FK 25 Mio. | Umsatz 50 Mio. | Zinsen 2,5 Mio.</p>
+        <p style="font-size:13px;margin-top:4px">
+          ROE = <span class="hl">25 %</span> &nbsp;|&nbsp;
+          ROA = <span class="hl">16,67 %</span> &nbsp;|&nbsp;
+          ROS = <span class="hl">10 %</span> &nbsp;|&nbsp;
+          FK-Rent. = <span class="hl">10 %</span>
+        </p>
+        <p style="font-size:12px;color:var(--text3);margin-top:6px">Merke: Bei ROA werden Fremdkapitalzinsen zum Gewinn addiert, um Kapitalleistung unabhängig von der Finanzierungsstruktur zu beurteilen.</p>
+      </div>
+
+      <div class="card">
+        <h3>Liquidität</h3>
+        <p>Verhältnis von flüssigen Mitteln zu kurzfristigen Schulden. Richtwert: ca. 20 %.</p>
+        <div class="formula">Liquiditätsquote = Flüssige Mittel / Kurzfristige Verbindlichkeiten × 100</div>
+        <p style="margin-top:6px;font-size:13px">
+          <span class="hl">Flüssige Mittel</span> = Kassenbestand + Bankguthaben<br>
+          <span class="hl">Kurzfristige Verbindlichkeiten</span> = Schulden aus L&amp;L + Bankkredite (&lt; 1 Jahr)
+        </p>
+        <p style="font-size:13px;margin-top:6px">Beispiel: (10.000 + 15.000) / 35.000 × 100 = <span class="hl">71,4 %</span></p>
+      </div>
+    </div>
+
+    <!-- LEISTUNGSPROZESSE -->
+    <div id="wertschoepfung" class="section">
+      <h2>Leistungsprozesse &amp; Wertschöpfungskette</h2>
+      <p class="subtitle">Betriebliche Vorgänge und Porters Wertschöpfungskette</p>
+
+      <div class="card">
+        <h3>Betriebliche Vorgänge (4 Bereiche)</h3>
+        <table>
+          <tr><th>Bereich</th><th>Aufgabe</th><th>Beispiel</th></tr>
+          <tr><td class="hl">Beschaffung</td><td>Versorgung mit Ressourcen</td><td>Rohstoffe kaufen, Personal einstellen, Kredite</td></tr>
+          <tr><td class="hl">Produktion</td><td>Umwandlung in Produkte/DL</td><td>Autos fertigen, Beratung anbieten</td></tr>
+          <tr><td class="hl">Absatz</td><td>Verkauf an Kunden</td><td>Online-Shop, Marketingkampagnen</td></tr>
+          <tr><td class="hl">Betriebsleitung</td><td>Planung, Organisation, Kontrolle</td><td>Strategieplanung, Personalmanagement</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Wertschöpfungskette (nach Michael Porter)</h3>
+        <p style="margin-bottom:10px">Reihenfolge von Aktivitäten, die einen Rohstoff in ein verkaufsfähiges Produkt verwandeln.</p>
+        <table>
+          <tr><th>#</th><th>Stufe</th><th>Inhalt</th></tr>
+          <tr><td>1</td><td class="hl">Eingangslogistik</td><td>Beschaffung und Lagerung von Rohstoffen</td></tr>
+          <tr><td>2</td><td class="hl">Produktion</td><td>Umwandlung der Rohstoffe in fertige Produkte</td></tr>
+          <tr><td>3</td><td class="hl">Ausgangslogistik</td><td>Lagerung und Verteilung des fertigen Produkts</td></tr>
+          <tr><td>4</td><td class="hl">Marketing &amp; Vertrieb</td><td>Werbung und Verkauf an Kunden</td></tr>
+          <tr><td>5</td><td class="hl">Kundendienst</td><td>Service und Unterstützung nach dem Verkauf</td></tr>
+        </table>
+        <p style="margin-top:8px;font-size:13px"><span class="hl">Unterstützende Aktivitäten:</span> Infrastruktur, Personalwirtschaft, Technologieentwicklung, Beschaffung</p>
+      </div>
+
+      <div class="card">
+        <h3>Input &amp; Output</h3>
+        <div class="two-col">
+          <div>
+            <p style="font-weight:bold;margin-bottom:4px">Inputs</p>
+            <ul>
+              <li><span class="hl">Materiell:</span> Rohstoffe, Maschinen</li>
+              <li><span class="hl">Immateriell:</span> Arbeitszeit, Wissen, Lizenzen</li>
+              <li><span class="hl">Finanziell:</span> Kapital, Investitionen</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-weight:bold;margin-bottom:4px">Outputs</p>
+            <ul>
+              <li><span class="hl">Physisch:</span> fertige Produkte</li>
+              <li><span class="hl">Dienstleistungen:</span> Beratung</li>
+              <li><span class="hl">Immateriell:</span> Kundenzufriedenheit, Markenimage</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Volkswirtschaftliche Produktionsfaktoren</h3>
+        <div class="two-col">
+          <div>
+            <span class="tag tag-blue">Originär (ursprünglich)</span>
+            <ul>
+              <li><span class="hl">Arbeit:</span> menschliche Tätigkeiten gegen Entgelt (ausführend + Wissen)</li>
+              <li><span class="hl">Natur/Boden:</span> natürliche Ressourcen (Erdöl, Wind, Land) – begrenzt!</li>
+            </ul>
+          </div>
+          <div>
+            <span class="tag tag-blue">Derivativ (abgeleitet)</span>
+            <ul>
+              <li><span class="hl">Kapital:</span> Sachkapital wie Maschinen, Anlagen, Gebäude – entsteht aus Arbeit + Natur</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUFBAUORGANISATION -->
+    <div id="aufbau" class="section">
+      <h2>Aufbauorganisation</h2>
+      <p class="subtitle">Organisationsstrukturen und Leitungssysteme</p>
+
+      <div class="card">
+        <h3>Organisationsstrukturen im Vergleich</h3>
+        <table>
+          <tr><th>Struktur</th><th>Vorteile</th><th>Nachteile</th></tr>
+          <tr>
+            <td><span class="hl">Funktionsorientiert</span><br><span style="font-size:12px">Abteilungen nach Spezialgebiet</span></td>
+            <td class="ok">Klare Rollen, hohe Spezialisierung, Effizienz</td>
+            <td class="bad">Silodenken, schlechte Kommunikation, wenig Flexibilität</td>
+          </tr>
+          <tr>
+            <td><span class="hl">Objektorientiert</span><br><span style="font-size:12px">Teams rund um Produkte/Projekte</span></td>
+            <td class="ok">Hohe Flexibilität, schnelle Reaktion, bessere Kommunikation</td>
+            <td class="bad">Ressourcenüberlappung, Doppelarbeit, Gesamtziel kann verloren gehen</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Leitungssysteme im Vergleich</h3>
+        <table>
+          <tr><th>System</th><th>Prinzip</th><th>Vorteile</th><th>Nachteile</th></tr>
+          <tr>
+            <td class="hl">Einliniensystem</td>
+            <td>Jeder MA hat genau einen Vorgesetzten</td>
+            <td class="ok">Klare Kommunikation, eindeutige Verantwortung</td>
+            <td class="bad">Starre Struktur, pot. Überlastung</td>
+          </tr>
+          <tr>
+            <td class="hl">Mehrliniensystem</td>
+            <td>MA erhält Anweisungen von mehreren Vorgesetzten</td>
+            <td class="ok">Höhere Flexibilität, Flaschenhals-Vermeidung</td>
+            <td class="bad">Keine eindeutige Hierarchie, Konflikte</td>
+          </tr>
+          <tr>
+            <td class="hl">Stabliniensystem</td>
+            <td>Linienmanager + beratende Stabsstellen</td>
+            <td class="ok">Fokus auf Kernkompetenzen durch Expertenunterstützung</td>
+            <td class="bad">Rollenunklarheiten, pot. Überlastung durch Stabsinfos</td>
+          </tr>
+          <tr>
+            <td class="hl">Matrixorganisation</td>
+            <td>Jeder MA hat funktionalen Manager und Projektleiter</td>
+            <td class="ok">Hohe Flexibilität, effiziente Ressourcennutzung</td>
+            <td class="bad">Konflikte bei verschiedenen Prioritäten, Rollenverwirrung</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- FÜHRUNGSSTILE -->
+    <div id="fuehrung" class="section">
+      <h2>Führungsstile nach Kurt Lewin</h2>
+      <p class="subtitle">Drei klassische Führungsstile und ihre Anwendung</p>
+
+      <div class="two-col">
+        <div class="card">
+          <span class="tag tag-red">Autokratisch</span>
+          <h3>Autoritärer Stil</h3>
+          <p style="font-size:13px;margin-bottom:8px">Führungskraft behält <span class="hl">vollständige Kontrolle</span>. Mitarbeiter haben keinen Einfluss auf Entscheidungen.</p>
+          <p class="ok">✓ Schnelle Entscheidungen, effizient in Krisen</p>
+          <p class="bad">✗ Unterdrückt Kreativität, geringe Mitarbeiterbindung</p>
+          <p style="font-size:12px;margin-top:6px"><span class="hl">Wann?</span> Krisensituationen, Zeitdruck</p>
+        </div>
+        <div class="card">
+          <span class="tag tag-green">Demokratisch</span>
+          <h3>Kooperativer Stil</h3>
+          <p style="font-size:13px;margin-bottom:8px">Mitarbeiter werden in <span class="hl">Entscheidungsfindung einbezogen</span>. Konsens wird angestrebt.</p>
+          <p class="ok">✓ Hohe Motivation, Kreativität, Mitarbeiterbindung</p>
+          <p class="bad">✗ Entscheidungen dauern länger</p>
+          <p style="font-size:12px;margin-top:6px"><span class="hl">Wann?</span> Teamarbeit, Ideenentwicklung</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="tag tag-blue">Laissez-faire</span>
+        <h3>Freihändiger Stil</h3>
+        <p style="font-size:13px;margin-bottom:8px">Minimaler Eingriff der Führungskraft. Mitarbeiter erhalten <span class="hl">größte Autonomie</span> und Entscheidungsfreiheit.</p>
+        <div class="two-col">
+          <p class="ok">✓ Maximale Kreativität und Innovation</p>
+          <p class="bad">✗ Mangelnde Struktur, Unklarheit, pot. weniger Motivation</p>
+        </div>
+        <p style="font-size:12px;margin-top:6px"><span class="hl">Wann?</span> Hochqualifizierte, selbstmotivierte Teams</p>
+      </div>
+
+      <div class="card">
+        <h3>Situativer Führungsstil in der Praxis</h3>
+        <table>
+          <tr><th>Situation</th><th>Passender Stil</th></tr>
+          <tr><td>Kreativphase / erfahrenes Team</td><td class="hl">Laissez-faire</td></tr>
+          <tr><td>Deadline, Zeitdruck, Krise</td><td class="hl">Autokratisch</td></tr>
+          <tr><td>Feedbackrunde, Verbesserungen planen</td><td class="hl">Demokratisch</td></tr>
+          <tr><td>Notfall-Team, sofortige Entscheidung nötig</td><td class="hl">Autokratisch</td></tr>
+          <tr><td>Gruppe plant gemeinsam eine Veranstaltung</td><td class="hl">Demokratisch</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- LAGERKENNZAHLEN -->
+    <div id="lager" class="section">
+      <h2>Lagerkennzahlen</h2>
+      <p class="subtitle">Lagerfunktionen, Kennzahlen und Formeln</p>
+
+      <div class="card">
+        <h3>Aufgaben der Lagerhaltung (4 Funktionen)</h3>
+        <table>
+          <tr><th>Funktion</th><th>Beschreibung</th><th>Beispiel</th></tr>
+          <tr><td class="hl">Sicherungs- &amp; Versorgungsfunktion</td><td>Verkaufsbereitschaft bei Lieferengpässen sichern</td><td>Puffer bei Produktionsstörungen</td></tr>
+          <tr><td class="hl">Ausgleichs- &amp; Pufferfunktion</td><td>Lieferfähigkeit bei unerwarteter Nachfrage</td><td>Mehr Lager vor Saisonspitzen</td></tr>
+          <tr><td class="hl">Umformungs- / Produktionsfunktion</td><td>Ware zur Verkaufsreife bringen</td><td>Cognac, Wein reifen lassen</td></tr>
+          <tr><td class="hl">Spekulationsfunktion</td><td>Bei günstigen Preisen mehr einkaufen</td><td>Rohstoffe bei Preistief einlagern</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Durchschnittlicher Lagerbestand (3 Methoden)</h3>
+        <div class="formula">Methode 1 – Anfangs &amp; Endbestand: (Anfangsbestand + Endbestand) / 2</div>
+        <p style="font-size:12px;color:var(--text3);margin-bottom:6px">→ Geeignet für: konstante Nachfrage</p>
+        <div class="formula">Methode 2 – Quartalsbasis: (Q1 + Q2 + Q3 + Q4) / 4</div>
+        <p style="font-size:12px;color:var(--text3);margin-bottom:6px">→ Geeignet für: saisonale Nachfrage</p>
+        <div class="formula">Methode 3 – Monatsbasis: (M1 + M2 + ... + M12) / 12</div>
+        <p style="font-size:12px;color:var(--text3)">→ Geeignet für: stark schwankende Nachfrage</p>
+      </div>
+
+      <div class="card">
+        <h3>Lagerumschlagshäufigkeit</h3>
+        <p style="margin-bottom:8px;font-size:13px">Gibt an, wie oft der Lagerbestand in einem Zeitraum vollständig umgeschlagen wird. Hoher Wert = effizientes Lagermanagement.</p>
+        <div class="formula">Umschlagshäufigkeit = Lagerabgänge / Ø Lagerbestand</div>
+        <div class="formula">Umschlagshäufigkeit = 360 Tage / Ø Lagerdauer</div>
+        <hr class="div">
+        <p style="font-size:13px"><span class="hl">Achtung:</span> Wert &lt; 0,5 → Überbestand, bindet unnötig Ressourcen</p>
+        <p style="font-size:13px;margin-top:4px">Beispiel: 20.000 Laptops / 4.000 Ø-Bestand = <span class="hl">5×</span> &nbsp;|&nbsp; 360 / 60 Tage = <span class="hl">6×</span></p>
+      </div>
+
+      <div class="card">
+        <h3>Lagerdauer (Umkehrformel)</h3>
+        <div class="formula">Ø Lagerdauer = 360 Tage / Umschlagshäufigkeit</div>
+        <p style="font-size:13px;margin-top:6px">Beispiel: Umschlagshäufigkeit = 360.000 / 45.000 = 8 → Lagerdauer = 360 / 8 = <span class="hl">45 Tage</span></p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button, .mobile-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button, .mobile-nav button').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) {
+      b.classList.add('active');
+    }
+  });
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-btn');
+  const current = root.getAttribute('data-theme');
+  const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = current === 'dark' || (!current && sysDark);
+  if (isDark) {
+    root.setAttribute('data-theme', 'light');
+    btn.textContent = '🌙 Dunkel';
+  } else {
+    root.setAttribute('data-theme', 'dark');
+    btn.textContent = '☀️ Hell';
+  }
+}
+
+(function() {
+  const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const btn = document.getElementById('theme-btn');
+  if (btn && sysDark) btn.textContent = '☀️ Hell';
+})();
+</script>
+</body>
+</html>
